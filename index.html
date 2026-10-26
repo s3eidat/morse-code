@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Morse Code — Free Morse Code Translator with Sound, Flash &amp; Tap Key | S3eidat Tools</title>
+<meta name="description" content="Translate text to Morse code and back as you type, hear it at any WPM and tone, flash it as light, tap your own Morse and see it decoded, with a full reference chart. Free and private.">
+<meta property="og:title" content="Morse Code — translate, hear and tap Morse">
+<meta property="og:description" content="Text ⇄ Morse, audio, flash and a tap key. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="morse-code">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Morse Code</h1>
+    <p>Type in either box and the other one follows. Play it as sound or light, or tap it out yourself and watch it decode.</p>
+  </section>
+
+  <section class="card">
+    <div class="grid-2">
+      <div>
+        <div class="row between">
+          <label for="text" class="field">Text</label>
+          <div class="row">
+            <button class="btn ghost small" id="copyText"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+            <button class="btn ghost small" id="clear"><svg class="i"><use href="#i-trash"/></svg>Clear</button>
+          </div>
+        </div>
+        <textarea class="textarea prose mc-box mt" id="text" spellcheck="false" placeholder="Type text, e.g. SOS"></textarea>
+      </div>
+      <div>
+        <div class="row between">
+          <label for="morse" class="field">Morse</label>
+          <button class="btn ghost small" id="copyMorse"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+        </div>
+        <textarea class="textarea mc-box mc-morse mt" id="morse" spellcheck="false" placeholder="... --- ...  (a space between letters, / between words)"></textarea>
+      </div>
+    </div>
+    <p class="faint" id="info" aria-live="polite"></p>
+
+    <div class="mc-player">
+      <div class="row">
+        <button class="btn primary" id="play"><svg class="i"><use href="#i-play"/></svg>Play</button>
+        <button class="btn" id="stop" disabled><svg class="i"><use href="#i-pause"/></svg>Stop</button>
+        <label class="check"><input type="checkbox" id="sound" checked> Sound</label>
+        <label class="check"><input type="checkbox" id="flash"> Flash</label>
+        <span class="chip accent mc-now" id="now" aria-live="polite"></span>
+      </div>
+      <div class="mc-sliders">
+        <label class="field"><span class="row between">Speed <b class="mono" id="wpmV"></b></span><input type="range" id="wpm" min="5" max="40" step="1"></label>
+        <label class="field"><span class="row between">Tone <b class="mono" id="toneV"></b></span><input type="range" id="tone" min="300" max="1000" step="10"></label>
+        <label class="field"><span class="row between">Volume <b class="mono" id="volV"></b></span><input type="range" id="vol" min="0.05" max="1" step="0.05"></label>
+      </div>
+    </div>
+    <p class="faint mt" id="flashNote" hidden>Flash plays at 6 WPM or slower (at most 2.5 flashes a second), to be gentle on people who are sensitive to flashing light.</p>
+    <div class="mc-lamp mt" id="lamp" aria-hidden="true" hidden></div>
+  </section>
+
+  <section class="card mt">
+    <div class="row between">
+      <h2>Tap key <small>press and hold: short = dot, long = dash</small></h2>
+      <div class="row">
+        <button class="btn small" id="tapUse">Use as text</button>
+        <button class="btn ghost small" id="tapClear"><svg class="i"><use href="#i-trash"/></svg>Clear</button>
+      </div>
+    </div>
+    <div class="mc-tap">
+      <button class="mc-pad" id="pad" type="button" aria-label="Morse key: hold Space or press here">TAP<small>or hold Space</small></button>
+      <div class="mc-tapout">
+        <div class="out mc-decoded" id="tapOut" aria-live="polite"></div>
+        <div class="mono mc-sym" id="tapSym" aria-label="Current letter"></div>
+        <p class="faint" id="tapHint"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card mt">
+    <h2>Reference chart <small>click a key to hear it</small></h2>
+    <div class="mc-chart" id="chart"></div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
